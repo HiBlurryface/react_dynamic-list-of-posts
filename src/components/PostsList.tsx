@@ -11,9 +11,9 @@ export const PostsList: React.FC = () => {
   const { setComments, setCommentsStatus } = useContext(CommentsContext);
 
   const closePost = () => {
-    setPost(null)
+    setPost(null);
     setComments([]);
-  }
+  };
 
   const openPost = async (currentPost: Post) => {
     setComments([]);
@@ -57,8 +57,8 @@ export const PostsList: React.FC = () => {
                 <td data-cy="PostTitle">{item.title}</td>
 
                 <td className="has-text-right is-vcentered">
-                  {post?.id !== item.id
-                    ? <button
+                  {post?.id !== item.id ? (
+                    <button
                       type="button"
                       data-cy="PostButton"
                       className="button is-link is-light"
@@ -66,7 +66,8 @@ export const PostsList: React.FC = () => {
                     >
                       Open
                     </button>
-                    : <button
+                  ) : (
+                    <button
                       type="button"
                       data-cy="PostButton"
                       className="button is-link"
@@ -74,7 +75,7 @@ export const PostsList: React.FC = () => {
                     >
                       Close
                     </button>
-                  }
+                  )}
                 </td>
               </tr>
             );

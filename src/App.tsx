@@ -31,7 +31,7 @@ export const App = () => {
         }
 
         setUsers(response);
-      } catch (err) { }
+      } catch (err) {}
     };
 
     loadUsers();

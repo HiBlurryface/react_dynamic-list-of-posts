@@ -24,9 +24,9 @@ export const NewCommentForm: React.FC = () => {
   });
 
   const clearForm = () => {
-    setForm({ name: '', email: '', comment: '' })
-    setErrors({ name: false, email: false, comment: false })
-  }
+    setForm({ name: '', email: '', comment: '' });
+    setErrors({ name: false, email: false, comment: false });
+  };
 
   const onChange = (
     input: FormFields,
@@ -37,7 +37,7 @@ export const NewCommentForm: React.FC = () => {
   };
 
   const validateInput = (input: FormFields) => {
-    if (form[input].length === 0) {
+    if (form[input].trim().length === 0) {
       setErrors(prev => ({ ...prev, [input]: true }));
     } else {
       setErrors(prev => ({ ...prev, [input]: false }));
@@ -51,7 +51,7 @@ export const NewCommentForm: React.FC = () => {
       validateInput(key as FormFields);
     });
 
-    const isFormValid = Object.values(form).every(value => value.length > 0);
+    const isFormValid = Object.values(form).every(value => value.trim().length > 0);
 
     if (isFormValid) {
       setLoading(true);
@@ -192,20 +192,19 @@ export const NewCommentForm: React.FC = () => {
           >
             Add
           </button>
-          {/* <button type="submit" className="button is-link is-loading">
-            Add
-          </button> */}
         </div>
 
         <div className="control">
           {/* eslint-disable-next-line react/button-has-type */}
           <button
             onClick={() => clearForm()}
-            type="reset" className="button is-link is-light">
+            type="reset"
+            className="button is-link is-light"
+          >
             Clear
           </button>
         </div>
       </div>
-    </form >
+    </form>
   );
 };
