@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { UsersContext } from '../store/UsersProvider';
 import classNames from 'classnames';
 import { UserContext } from '../store/UserProvider';
@@ -15,6 +15,7 @@ export const UserSelector: React.FC = () => {
   const { setPost } = useContext(PostContext);
   const { setComments } = useContext(CommentsContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const selectRef = useRef<HTMLDivElement | null>(null);
 
   const selectUser = async (currentUser: User) => {
     setPosts([]);
@@ -37,6 +38,22 @@ export const UserSelector: React.FC = () => {
       setPostsStatus('error');
     }
   };
+
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (selectRef.current && selectRef.current.contains(e.target as Node)) {
+        return;
+      }
+
+      setIsOpen(false);
+    };
+
+    document.addEventListener('mousedown', close);
+
+    return () => {
+      document.removeEventListener('mousedown', close);
+    };
+  }, []);
 
   return (
     <div
@@ -62,7 +79,7 @@ export const UserSelector: React.FC = () => {
       </div>
 
       <div className="dropdown-menu" id="dropdown-menu" role="menu">
-        <div className="dropdown-content">
+        <div className="dropdown-content" ref={selectRef}>
           {users.map(item => {
             return (
               <a
@@ -77,9 +94,6 @@ export const UserSelector: React.FC = () => {
               </a>
             );
           })}
-          {/* <a href="#user-2" className="dropdown-item is-active">
-              Ervin Howell
-            </a> */}
         </div>
       </div>
     </div>

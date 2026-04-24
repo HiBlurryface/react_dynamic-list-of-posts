@@ -23,6 +23,11 @@ export const NewCommentForm: React.FC = () => {
     comment: false,
   });
 
+  const clearForm = () => {
+    setForm({ name: '', email: '', comment: '' })
+    setErrors({ name: false, email: false, comment: false })
+  }
+
   const onChange = (
     input: FormFields,
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -194,11 +199,13 @@ export const NewCommentForm: React.FC = () => {
 
         <div className="control">
           {/* eslint-disable-next-line react/button-has-type */}
-          <button type="reset" className="button is-link is-light">
+          <button
+            onClick={() => clearForm()}
+            type="reset" className="button is-link is-light">
             Clear
           </button>
         </div>
       </div>
-    </form>
+    </form >
   );
 };

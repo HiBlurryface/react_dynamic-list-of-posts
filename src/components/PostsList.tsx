@@ -4,12 +4,16 @@ import { getComments } from '../api';
 import { Post } from '../types/Post';
 import { PostContext } from '../store/PostProvider';
 import { CommentsContext } from '../store/CommentsProvider';
-import classNames from 'classnames';
 
 export const PostsList: React.FC = () => {
   const { posts } = useContext(PostsContext);
   const { post, setPost } = useContext(PostContext);
   const { setComments, setCommentsStatus } = useContext(CommentsContext);
+
+  const closePost = () => {
+    setPost(null)
+    setComments([]);
+  }
 
   const openPost = async (currentPost: Post) => {
     setComments([]);
@@ -53,16 +57,24 @@ export const PostsList: React.FC = () => {
                 <td data-cy="PostTitle">{item.title}</td>
 
                 <td className="has-text-right is-vcentered">
-                  <button
-                    type="button"
-                    data-cy="PostButton"
-                    className={classNames('button is-link', {
-                      ['is-light']: post?.id !== item.id,
-                    })}
-                    onClick={() => openPost(item)}
-                  >
-                    {item.id === post?.id ? 'Close' : 'Open'}
-                  </button>
+                  {post?.id !== item.id
+                    ? <button
+                      type="button"
+                      data-cy="PostButton"
+                      className="button is-link is-light"
+                      onClick={() => openPost(item)}
+                    >
+                      Open
+                    </button>
+                    : <button
+                      type="button"
+                      data-cy="PostButton"
+                      className="button is-link"
+                      onClick={() => closePost()}
+                    >
+                      Close
+                    </button>
+                  }
                 </td>
               </tr>
             );

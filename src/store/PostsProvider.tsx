@@ -12,9 +12,9 @@ interface Props {
 
 export const PostsContext = createContext<Props>({
   posts: [],
-  setPosts: () => {},
+  setPosts: () => { },
   postsStatus: 'idle',
-  setPostsStatus: () => {},
+  setPostsStatus: () => { },
 });
 
 export const PostsProvider = ({ children }: { children: React.ReactNode }) => {
@@ -28,7 +28,7 @@ export const PostsProvider = ({ children }: { children: React.ReactNode }) => {
       postsStatus,
       setPostsStatus,
     }),
-    [posts, status],
+    [posts, postsStatus],
   );
 
   return (

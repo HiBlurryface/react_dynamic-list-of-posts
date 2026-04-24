@@ -22,7 +22,7 @@ export const App = () => {
   const { post } = useContext(PostContext);
 
   useEffect(() => {
-    const loadTodos = async () => {
+    const loadUsers = async () => {
       try {
         const response = await getUsers();
 
@@ -31,10 +31,10 @@ export const App = () => {
         }
 
         setUsers(response);
-      } catch (err) {}
+      } catch (err) { }
     };
 
-    loadTodos();
+    loadUsers();
   }, []);
 
   return (

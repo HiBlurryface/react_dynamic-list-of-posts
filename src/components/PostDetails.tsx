@@ -52,8 +52,8 @@ export const PostDetails: React.FC = () => {
           </div>
         )}
 
-        {commentsStatus === 'success' &&
-          (comments.length === 0 ? (
+        {commentsStatus === 'success' && <>
+          {comments.length === 0 ? (
             <p className="title is-4" data-cy="NoCommentsMessage">
               No comments yet
             </p>
@@ -69,7 +69,7 @@ export const PostDetails: React.FC = () => {
                   >
                     <div className="message-header">
                       <a
-                        href="mailto:misha@mate.academy"
+                        href={`mailto:${comment.email}`}
                         data-cy="CommentAuthor"
                       >
                         {comment.name}
@@ -91,27 +91,21 @@ export const PostDetails: React.FC = () => {
                   </article>
                 );
               })}
-              {!isEditing && (
-                <button
-                  data-cy="WriteCommentButton"
-                  type="button"
-                  className="button is-link"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Write a comment
-                </button>
-              )}
             </>
-          ))}
+          )}
+          {!isEditing && <button
+            data-cy="WriteCommentButton"
+            type="button"
+            className="button is-link"
+            onClick={() => setIsEditing(true)}
+          >
+            Write a comment
+          </button>}
+        </>
+        }
       </div>
 
       {isEditing && <NewCommentForm />}
     </div>
   );
 };
-
-{
-  /* <div className="message-body" data-cy="CommentBody">
-{'Multi\nline\ncomment'}
-</div> */
-}
